@@ -68,7 +68,7 @@ tokenizer = load(open('tokenizer.pkl', 'rb'))
 # pre-define the max sequence length (from training)
 max_length = 34
 # load the model
-model = load_model('model-ep003-loss3.624-val_loss3.867.h5')
+model = load_model('model-tf2.h5')
 # load and prepare the photograph
 while True:
     photo = extract_features(input('Image File: '))
