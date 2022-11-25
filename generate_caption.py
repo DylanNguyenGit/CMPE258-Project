@@ -62,20 +62,46 @@ def generate_desc(model, tokenizer, photo, max_length):
             break
     return in_text
 
+# parse model arg
+def parse_model_arg(model):
+    model_base = 'models/model-tf2.h5'
+    model_adamax = 'models/model-adamax.h5'
+    model_dropout = 'models/model-dropout.h5'
+    model_layers = 'models/model-extra-layers.h5'
+    model_selu = 'models/model-selu.h5'
+
+    # check for model names
+    if model == 'adamax':
+        return model_adamax, model
+    if model == 'dropout':
+        return model_dropout, model
+    if model == 'layers':
+        return model_layers, 'extra layers'
+    if model == 'selu':
+        return model_selu, model
+
+    # default to base model
+    return model_base, 'base'
+
+
+import argparse
+parser = argparse.ArgumentParser(description='Generate a caption from given image')
+parser.add_argument("-p", "--photo", help="Generates caption for given image path", type=str)
+parser.add_argument("-m", "--model", help="Generates caption using given model. Options are base, adamax, dropout, "
+                                          "layers, and selu", type=str)
+args = parser.parse_args()
 
 # load the tokenizer
 tokenizer = load(open('tokenizer.pkl', 'rb'))
 # pre-define the max sequence length (from training)
 max_length = 34
 # load the model
-model_base = load_model('models/model-tf2.h5')
-model_adamax = load_model('models/model-adamax.h5')
-model_dropout = load_model('models/model-dropout.h5')
-model_layers = load_model('models/model-extra-layers.h5')
-model_selu = load_model('models/model-selu.h5')
+model_path, model_name = parse_model_arg(args.model)
+model = load_model(model_path)
 # load and prepare the photograph
-while True:
-    photo = extract_features(input('Image File: '))
-    # generate description
-    description = generate_desc(model_layers, tokenizer, photo, max_length)
-    print(description)
+photo = extract_features(args.photo)
+# generate description
+description = generate_desc(model, tokenizer, photo, max_length)
+print('-------------------------------------------------------------------')
+print(f'Using {model_name} model')
+print(description)
