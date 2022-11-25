@@ -1,7 +1,7 @@
 from numpy import argmax
 from pickle import load
 from keras.preprocessing.text import Tokenizer
-from keras.utils import pad_sequences
+from keras.preprocessing.sequence import pad_sequences
 from keras.models import load_model
 from nltk.translate.bleu_score import corpus_bleu
 
@@ -169,7 +169,7 @@ test_features = load_photo_features('features.pkl', test)
 print('Photos: test=%d' % len(test_features))
 
 # load the model
-filename = 'model-tf2.h5'
+filename = 'models/model-extra-layers.h5'
 model = load_model(filename)
 # evaluate model
 evaluate_model(model, test_descriptions, test_features, tokenizer, max_length)

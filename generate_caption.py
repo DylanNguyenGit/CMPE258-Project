@@ -1,9 +1,9 @@
 from pickle import load
 from numpy import argmax
-from keras.utils import pad_sequences
+from keras.preprocessing.sequence import pad_sequences
 from keras.applications.vgg16 import VGG16
-from keras.utils import load_img
-from keras.utils import img_to_array
+from keras.preprocessing.image import load_img
+from keras.preprocessing.image import img_to_array
 from keras.applications.vgg16 import preprocess_input
 from keras.models import Model
 from keras.models import load_model
@@ -68,10 +68,14 @@ tokenizer = load(open('tokenizer.pkl', 'rb'))
 # pre-define the max sequence length (from training)
 max_length = 34
 # load the model
-model = load_model('model-tf2.h5')
+model_base = load_model('models/model-tf2.h5')
+model_adamax = load_model('models/model-adamax.h5')
+model_dropout = load_model('models/model-dropout.h5')
+model_layers = load_model('models/model-extra-layers.h5')
+model_selu = load_model('models/model-selu.h5')
 # load and prepare the photograph
 while True:
     photo = extract_features(input('Image File: '))
     # generate description
-    description = generate_desc(model, tokenizer, photo, max_length)
+    description = generate_desc(model_layers, tokenizer, photo, max_length)
     print(description)
