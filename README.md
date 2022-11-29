@@ -30,7 +30,7 @@ Caption generation is done from the command line. The image to be captioned shou
     - adamax = use of adamax optimizer instead of adam
 
 ## Full Training Process
-Files were run either by pressing the run button in Pycharm or with `python FILE` int he terminal. The files were run in the following order to train the model:
+Files were run either by pressing the run button in Pycharm or with `python FILE` in the terminal. The files were run in the following order to train the model:
 1. prep_dataset
 2. prep_text
 3. train_model
@@ -39,7 +39,13 @@ Files were run either by pressing the run button in Pycharm or with `python FILE
 
 Any ablations done to train_model is then followed by running train_model again.
 
+## Photo Dataset Cleaning
+For out project we used the Flickr8K dataset to train the model. However, there were issues witht he frequency of terms. For example, an abundance of the word 'red' in reference to shirts would have all captions with shirts have the word 'red'. Thus, we cleaned up the dataset by first counting the number of occurences of adjectives int he dataset. Any word in a certain category, like color, that occured inproportionately frequently was then altered. Many caption with those colors in it had the word removed so that the frequency of colors were more even without making the captions inaccurate.
+
 ## Using Different Models to Caption
 If you posses another model you wish to generate captions with, simply change line 100 in generate_caption.py. The line should be as follows:  
 `model = load_model(MODEL_PATH)` where MODEL_PATH is replaced with the path to the h5 file such as 'models/new-model.h5'.  
-It can then be run in the command line with `python generate_model --p PHOTO_PATH`
+It can then be run in the command line with `python generate_model --p PHOTO_PATH`  
+  
+## Verification Against Baseline
+Any new models trained can be verified against the base model. This model is found in 'models/model-tf2.h5'. This model is also run with the `--m base` flag if the code is not altered as per the previous section.
