@@ -40,7 +40,7 @@ Files were run either by pressing the run button in Pycharm or with `python FILE
 Any ablations done to train_model is then followed by running train_model again.
 
 ## Photo Dataset Cleaning
-For out project we used the Flickr8K dataset to train the model. However, there were issues witht he frequency of terms. For example, an abundance of the word 'red' in reference to shirts would have all captions with shirts have the word 'red'. Thus, we cleaned up the dataset by first counting the number of occurences of adjectives int he dataset. Any word in a certain category, like color, that occured inproportionately frequently was then altered. Many caption with those colors in it had the word removed so that the frequency of colors were more even without making the captions inaccurate.
+For out project we used the Flickr8K dataset to train the model. However, there were issues with the frequency of terms. For example, an abundance of the word 'red' in reference to shirts would have all captions with shirts have the word 'red'. Thus, we cleaned up the dataset by first counting the number of occurences of adjectives in the dataset. Any word in a certain category, like color, that occured inproportionately frequently was then altered. Many caption with those colors in it had the word removed so that the frequency of colors were more even without making the captions inaccurate.
 
 ## Using Different Models to Caption
 If you posses another model you wish to generate captions with, simply change line 100 in generate_caption.py. The line should be as follows:  
